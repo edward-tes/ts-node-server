@@ -1,0 +1,22 @@
+{
+  "name": "ts-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {},
+  "author": "Luyc",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.4",
+    "jade": "^1.11.0",
+    "tslint": "^5.7.0"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^3.2.3",
+    "tsd": "^0.6.5",
+    "typescript": "^2.4.2",
+    "webpack": "^3.5.5"
+  },
+  "scripts": {
+    "start": "webpack"
+  }
+}
