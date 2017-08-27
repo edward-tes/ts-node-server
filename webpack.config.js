@@ -1,39 +1,41 @@
 const path = require("path")
 const fs= require("fs")
-var nodeModules = {};
-fs.readdirSync('node_modules')
-  .filter(function(x) {
-    return ['.bin'].indexOf(x) === -1;
-  })
-  .forEach(function(mod) {
-    nodeModules[mod] = 'commonjs ' + mod;
-  });
-module.exports = {
-  target: "node",
-  entry: path.resolve("app.ts"),
-  output: {
-    path: path.resolve(__dirname, "server"),
-    filename: "app.js",
-    library: "app",
-    umdNamedDefine: true,
-    libraryTarget: "umd"
-  },
-  resolve: {
-    extensions: [ ".ts", ".tsx", ".js" ],
-    modules: [
-      path.resolve("src"),
-      path.resolve("."),
-      "node_modules"
-    ],
+console.log(path.resolve("src"))
 
+module.exports = {
+  name: "server",
+  target: "node",
+  entry: path.resolve("src/app.ts"),
+  output: {
+    path: path.resolve("server"),
+    filename: "app.js",
+    libraryTarget: "commonjs"
   },
   module: {
-    loaders: [
-      { test: /\.ts?$/, loader: "awesome-typescript-loader" }
-    ]
-  },
-  externals: nodeModules,
-  devtool: 'sourcemap'
+    // Disable handling of unknown requires
+    unknownContextRegExp: /$^/,
+    unknownContextCritical: false,
 
+    // Disable handling of requires with a single expression
+    exprContextRegExp: /$^/,
+    exprContextCritical: false,
+
+    // Warn for every expression in require
+    wrappedContextCritical: true,
+    rules: [
+      {
+        test: /\.ts$/,
+        include: [path.resolve(__dirname, "src")],
+        use: 'awesome-typescript-loader',
+      }
+    ],
+  },
+  resolve: {
+    modules: [
+      path.resolve("src"),
+      "node_modules"
+    ],
+    extensions: [ ".ts", ".tsx", ".js" ],
+  },
 
 };

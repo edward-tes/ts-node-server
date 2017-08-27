@@ -6,17 +6,26 @@
   "author": "Luyc",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.15.4",
-    "jade": "^1.11.0",
-    "tslint": "^5.7.0"
+    "express": "4.15.4",
+    "jade": "1.11.0",
+    "tslint": "5.7.0"
   },
   "devDependencies": {
-    "awesome-typescript-loader": "^3.2.3",
-    "tsd": "^0.6.5",
-    "typescript": "^2.4.2",
-    "webpack": "^3.5.5"
+    "awesome-typescript-loader": "3.2.3",
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-polyfill": "^6.26.0",
+    "cache-loader": "^1.0.3",
+    "supervisor": "0.12.0",
+    "ts-loader": "^2.3.4",
+    "tsd": "0.6.5",
+    "typescript": "2.4.2",
+    "webpack": "3.5.5"
   },
   "scripts": {
-    "start": "webpack"
+    "build": "webpack --watch ",
+    "server": "supervisor bin/www",
+    "start": "yarn build"
   }
 }

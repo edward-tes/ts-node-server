@@ -1,17 +1,16 @@
 "use strict"
 import * as express from "express"
-import * as indexRoute from "./src/routes/index";
+import IndexRoute from "./routes/index"
+import Hello from "./routes/hello"
 
 export class Server {
   public app: express.Application;
 
   public static bootstrap():Server {
     return new Server()
-
   }
 
   constructor() {
-    console.log("contructor")
     this.app = new express()
 
     this.routes();
@@ -22,10 +21,12 @@ export class Server {
     router = express.Router();
 
     //create routes
-    var index: indexRoute.Index = new indexRoute.Index();
+    var index: IndexRoute = new IndexRoute();
+    var hello: Hello = new Hello();
 
     //home page
     router.get("/", index.index);
+    router.get("/hello", hello.index);
 
     //use router middleware
     this.app.use(router);
