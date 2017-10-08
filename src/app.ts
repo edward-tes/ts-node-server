@@ -5,9 +5,9 @@ import IndexRoute from "./routes/index"
 import Hello from "./routes/hello"
 
 export class Server {
-  public app: express.Application;
+  public app: express.Application
 
-  public static bootstrap():Server {
+  public static bootstrap(): Server {
     return new Server()
   }
 
@@ -18,27 +18,23 @@ export class Server {
   }
 
   private routes() {
-    //get router
-    let router: express.Router;
-    router = express.Router();
+    let router: express.Router
+    router = express.Router()
 
-    //create routes
-    var index: IndexRoute = new IndexRoute();
-    var hello: Hello = new Hello();
+    var index: IndexRoute = new IndexRoute()
+    var hello: Hello = new Hello()
 
-    //home page
-    router.get("/", index.index);
-    router.get("/hello", hello.index);
+    router.get("/", index.index)
+    router.get("/hello", hello.index)
 
-    //use router middleware
-    this.app.use(router);
+    this.app.use(router)
   }
 
   public set() {
-  this.app.set('views', './views');
-    this.app.set('view engine', 'jade');
+    this.app.set("views", "./views")
 
-    console.log(this.app.get('view engine'))
+    this.app.set("view engine", "jade")
+
+    console.log(this.app.get("view engine"))
   }
 }
-

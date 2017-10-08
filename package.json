@@ -8,7 +8,7 @@
   "dependencies": {
     "express": "4.15.4",
     "jade": "^1.11.0",
-    "tslint": "5.7.0"
+    "tslint": "^5.7.0"
   },
   "devDependencies": {
     "awesome-typescript-loader": "3.2.3",
@@ -41,7 +41,12 @@
   },
   "lint-staged": {
     "src/**/*.ts": [
+      "prettier --trailing-comma all --no-semi --write",
       "eslint_d --fix",
+      "git add"
+    ],
+    "src/**/*.@(css|less)": [
+      "prettier --trailing-comma all --no-semi --write",
       "git add"
     ]
   }
