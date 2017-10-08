@@ -1,41 +1,74 @@
 const path = require("path")
-const fs= require("fs")
-console.log(path.resolve("src"))
+const fs = require("fs")
+const webpack = require("webpack")
+const {resolve} = require("path")
+const CopyWebpackPlugin = require("copy-webpack-plugin")
+const { CheckerPlugin } = require('awesome-typescript-loader')
+
+const nodeModules = {};
+fs.readdirSync('node_modules')
+  .filter(function(x) {
+    return ['.bin'].indexOf(x) === -1;
+  })
+  .forEach(function(mod) {
+    nodeModules[mod] = 'commonjs ' + mod;
+  });
 
 module.exports = {
   name: "server",
   target: "node",
-  entry: path.resolve("src/app.ts"),
+  entry: [
+    path.resolve("src/app.ts")
+  ],
   output: {
-    path: path.resolve("server"),
+    path: path.resolve(__dirname, "./build"),
     filename: "app.js",
-    libraryTarget: "commonjs"
+    libraryTarget: "commonjs",
+    publicPath: "/"
+  },
+  node: {
+    __filename: false,
+    __dirname: false,
   },
   module: {
-    // Disable handling of unknown requires
-    unknownContextRegExp: /$^/,
-    unknownContextCritical: false,
-
-    // Disable handling of requires with a single expression
-    exprContextRegExp: /$^/,
-    exprContextCritical: false,
-
-    // Warn for every expression in require
-    wrappedContextCritical: true,
     rules: [
       {
-        test: /\.ts$/,
-        include: [path.resolve(__dirname, "src")],
-        use: 'awesome-typescript-loader',
-      }
+        test: /\.tsx?$/,
+        loader: 'awesome-typescript-loader',
+      },
+      {
+        test: /\/views\/.+\.jade?$/i,
+        loader: "file-loader",
+        options: {
+          name: "[name].[ext]",
+          outputPath: "src"
+        },
+      },
     ],
   },
   resolve: {
     modules: [
       path.resolve("src"),
-      "node_modules"
+      "node_modules",
+      path.resolve(__dirname, "."),
     ],
-    extensions: [ ".ts", ".tsx", ".js" ],
+    extensions: [ ".ts", ".tsx", ".js"],
   },
+  plugins: [
+    new CheckerPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+  new CopyWebpackPlugin([
+      /**
+       * By default the copy plugin won't overwrites files which
+       * already copied, so make sure copy overwrites files first.
+       */
+       {
+        from: resolve(__dirname, "./views"),
+        to: resolve(__dirname, "./build/views"),
+      },
+    ]),
 
+  ],
+  devtool: "source-map",
+  externals: nodeModules
 };

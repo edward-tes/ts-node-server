@@ -1,4 +1,5 @@
 "use strict"
+
 import * as express from "express"
 import IndexRoute from "./routes/index"
 import Hello from "./routes/hello"
@@ -12,9 +13,10 @@ export class Server {
 
   constructor() {
     this.app = new express()
-
-    this.routes();
+    this.set()
+    this.routes()
   }
+
   private routes() {
     //get router
     let router: express.Router;
@@ -33,7 +35,9 @@ export class Server {
   }
 
   public set() {
-
+    this.app.set('views', './views');
+    this.app.set('view engine', 'jade');
+    console.log(this.app.get('view engine'))
   }
 }
 

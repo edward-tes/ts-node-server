@@ -7,7 +7,7 @@
   "license": "MIT",
   "dependencies": {
     "express": "4.15.4",
-    "jade": "1.11.0",
+    "jade": "^1.11.0",
     "tslint": "5.7.0"
   },
   "devDependencies": {
@@ -17,6 +17,9 @@
     "babel-loader": "^7.1.2",
     "babel-polyfill": "^6.26.0",
     "cache-loader": "^1.0.3",
+    "copy-webpack-plugin": "^4.1.1",
+    "file-loader": "^1.1.5",
+    "jade-loader": "^0.8.0",
     "supervisor": "0.12.0",
     "ts-loader": "^2.3.4",
     "tsd": "0.6.5",
@@ -24,7 +27,8 @@
     "webpack": "3.5.5"
   },
   "scripts": {
-    "build": "webpack --watch ",
+    "clean": "rm -rf server",
+    "build": "webpack --watch",
     "server": "supervisor bin/www",
     "start": "yarn build"
   }

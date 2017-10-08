@@ -3,7 +3,7 @@
 "use strict"
 
 //module dependencies.
-var appServer = require("./../server/app").Server;
+var appServer = require("./../build/app").Server;
 var debug = require("debug")("express:server");
 var http = require("http");
 
