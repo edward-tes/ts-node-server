@@ -35,8 +35,9 @@ export class Server {
   }
 
   public set() {
-    this.app.set('views', './views');
+  this.app.set('views', './views');
     this.app.set('view engine', 'jade');
+
     console.log(this.app.get('view engine'))
   }
 }
