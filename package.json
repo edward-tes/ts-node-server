@@ -6,8 +6,14 @@
   "author": "Luyc",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^4.0.0",
     "express": "4.15.4",
+    "express-graphql": "^0.6.11",
+    "graphql": "^0.11.7",
     "jade": "^1.11.0",
+    "log4js": "^2.3.5",
+    "mongoose": "^4.12.2",
+    "morgan": "^1.9.0",
     "tslint": "^5.7.0"
   },
   "devDependencies": {
@@ -24,8 +30,8 @@
     "husky": "^0.14.3",
     "jade-loader": "^0.8.0",
     "lint-staged": "^4.2.3",
+    "nodemon": "^1.12.1",
     "prettier": "1.7.4",
-    "supervisor": "0.12.0",
     "ts-loader": "^2.3.4",
     "tsd": "0.6.5",
     "typescript": "2.4.2",
@@ -34,9 +40,9 @@
   "scripts": {
     "clean": "rm -rf build",
     "precommit": "lint-staged",
-    "lint": "",
+    "lint": "prettier --trailing-comma all --no-semi --write \"src/**/*.@(ts|less|css)\" && eslint_d --fix src",
     "build": "webpack --watch",
-    "server": "supervisor bin/www",
+    "server": "nodemon --debug build/app",
     "start": "yarn build"
   },
   "lint-staged": {

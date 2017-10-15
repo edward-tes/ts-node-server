@@ -3,11 +3,11 @@
     "allowJs": true,
      "rootDirs": [
       "src"
-    ]
+    ],
+		"experimentalDecorators": true
   },
   "extends": [
     "tslint-eslint-rules"
-  ],
-  "rules": {
-  }
+  ]
 }
+

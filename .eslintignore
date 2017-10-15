@@ -1,0 +1,4 @@
+build/*
+fonts/*
+images/*
+webpack.config.js

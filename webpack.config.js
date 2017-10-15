@@ -56,7 +56,7 @@ module.exports = {
   },
   plugins: [
     new CheckerPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
+    //new webpack.HotModuleReplacementPlugin(),
   new CopyWebpackPlugin([
       /**
        * By default the copy plugin won't overwrites files which

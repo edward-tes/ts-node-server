@@ -1,40 +1,53 @@
-"use strict"
+"use strict";
 
-import * as express from "express"
-import IndexRoute from "./routes/index"
-import Hello from "./routes/hello"
+import * as debug from "debug";
+import * as dotenv from "dotenv";
+import * as http from "http";
+import * as log4js from "log4js";
+import Server from "./server";
+import * as utils from "./shared/utils";
 
-export class Server {
-  public app: express.Application
+dotenv.config({ path: ".env.test" });
 
-  public static bootstrap(): Server {
-    return new Server()
+const logger = log4js.getLogger();
+
+const port = utils.normalizePort(process.env.PORT || 8080);
+const app = Server.bootstrap().app;
+const server = http.createServer(app);
+
+logger.level = process.env.PORT || "info";
+
+server.listen(port);
+
+server.on("error", onError);
+server.on("listening", () => {
+  const addr = server.address();
+  const bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
+  logger.info("Listening on " + bind);
+});
+
+server.on("listening", () => {
+  const addr = server.address();
+  const bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
+  logger.info("Listening on " + bind);
+});
+
+function onError(error) {
+  if (error.syscall !== "listen") {
+    throw error;
   }
+  const bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
 
-  constructor() {
-    this.app = new express()
-    this.set()
-    this.routes()
-  }
-
-  private routes() {
-    let router: express.Router
-    router = express.Router()
-
-    var index: IndexRoute = new IndexRoute()
-    var hello: Hello = new Hello()
-
-    router.get("/", index.index)
-    router.get("/hello", hello.index)
-
-    this.app.use(router)
-  }
-
-  public set() {
-    this.app.set("views", "./views")
-
-    this.app.set("view engine", "jade")
-
-    console.log(this.app.get("view engine"))
+  switch (error.code) {
+    case "EACCES":
+      logger.error(bind + " requires elevated privileges");
+      process.exit(1);
+      break;
+    case "EADDRINUSE":
+      logger.error(bind + " is already in use");
+      process.exit(1);
+      break;
+    default:
+      throw error;
   }
 }
