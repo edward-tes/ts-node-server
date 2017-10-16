@@ -5,6 +5,44 @@
   "main": "index.js",
   "author": "Luyc",
   "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "precommit": "lint-staged",
+    "lint": "prettier --trailing-comma all --no-semi --write \"src/**/*.@(ts|less|css)\" && eslint_d --fix src",
+    "build": "webpack --watch",
+    "prod": "webpack",
+    "server": "nodemon dist/app",
+    "start": "yarn build",
+    "test": "jest"
+  },
+  "jest": {
+    "globals": {
+      "__TS_CONFIG__": "tsconfig.json"
+    },
+    "transform": {
+      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testMatch": ["**/test/**/*.test.(js|ts)"],
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json"
+    ]
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "prettier --trailing-comma all --no-semi --write",
+      "tslint --fix",
+      "git add"
+    ],
+    "src/**/*.@(css|less)": [
+      "prettier --trailing-comma all --no-semi --write",
+      "git add"
+    ]
+  },
   "dependencies": {
     "dotenv": "^4.0.0",
     "express": "4.15.4",
@@ -17,6 +55,7 @@
     "tslint": "^5.7.0"
   },
   "devDependencies": {
+    "@types/jest": "^21.1.2",
     "awesome-typescript-loader": "3.2.3",
     "babel": "^6.23.0",
     "babel-core": "^6.26.0",
@@ -29,32 +68,15 @@
     "file-loader": "^1.1.5",
     "husky": "^0.14.3",
     "jade-loader": "^0.8.0",
+    "jest": "^21.2.1",
     "lint-staged": "^4.2.3",
     "nodemon": "^1.12.1",
     "prettier": "1.7.4",
+    "supertest": "^3.0.0",
+    "ts-jest": "^21.1.2",
     "ts-loader": "^2.3.4",
     "tsd": "0.6.5",
     "typescript": "2.4.2",
     "webpack": "3.5.5"
-  },
-  "scripts": {
-    "clean": "rm -rf dist",
-    "precommit": "lint-staged",
-    "lint": "prettier --trailing-comma all --no-semi --write \"src/**/*.@(ts|less|css)\" && eslint_d --fix src",
-    "build": "webpack --watch",
-    "prod": "webpack",
-    "server": "nodemon dist/app",
-    "start": "yarn build"
-  },
-  "lint-staged": {
-    "src/**/*.ts": [
-      "prettier --trailing-comma all --no-semi --write",
-      "tslint --fix",
-      "git add"
-    ],
-    "src/**/*.@(css|less)": [
-      "prettier --trailing-comma all --no-semi --write",
-      "git add"
-    ]
   }
 }
