@@ -22,7 +22,9 @@
     "transform": {
       "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
-    "testMatch": ["**/test/**/*.test.(js|ts)"],
+    "testMatch": [
+      "**/test/**/*.test.(js|ts)"
+    ],
     "testEnvironment": "node",
     "moduleFileExtensions": [
       "ts",
@@ -56,6 +58,7 @@
   },
   "devDependencies": {
     "@types/jest": "^21.1.2",
+    "@types/node": "^8.0.34",
     "awesome-typescript-loader": "3.2.3",
     "babel": "^6.23.0",
     "babel-core": "^6.26.0",
