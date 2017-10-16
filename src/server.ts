@@ -2,6 +2,7 @@ import * as express from "express";
 import * as graphqlHTTP from "express-graphql";
 import { connectDB } from "./db";
 import userRoute from "./routes/user";
+import homeRoute from "./routes/home";
 import * as morgan from "morgan";
 
 export default class Server {
@@ -26,6 +27,7 @@ export default class Server {
   }
 
   private routes() {
+    this.app.use("/", homeRoute);
     this.app.use("/user", userRoute);
   }
 }
