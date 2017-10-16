@@ -1,8 +1,8 @@
 {
   "name": "ts-server",
   "version": "1.0.0",
-  "main": "index.js",
   "repository": {},
+  "main": "index.js",
   "author": "Luyc",
   "license": "MIT",
   "dependencies": {
@@ -38,11 +38,12 @@
     "webpack": "3.5.5"
   },
   "scripts": {
-    "clean": "rm -rf build",
+    "clean": "rm -rf dist",
     "precommit": "lint-staged",
     "lint": "prettier --trailing-comma all --no-semi --write \"src/**/*.@(ts|less|css)\" && eslint_d --fix src",
     "build": "webpack --watch",
-    "server": "nodemon --debug build/app",
+    "prod": "webpack",
+    "server": "nodemon dist/app",
     "start": "yarn build"
   },
   "lint-staged": {

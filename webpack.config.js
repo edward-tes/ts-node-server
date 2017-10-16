@@ -21,7 +21,7 @@ module.exports = {
     path.resolve("src/app.ts")
   ],
   output: {
-    path: path.resolve(__dirname, "./build"),
+    path: path.resolve(__dirname, "./dist"),
     filename: "app.js",
     libraryTarget: "commonjs",
     publicPath: "/"
@@ -64,7 +64,7 @@ module.exports = {
        */
        {
         from: resolve(__dirname, "./views"),
-        to: resolve(__dirname, "./build/views"),
+        to: resolve(__dirname, "./dist/views"),
       },
     ]),
 
