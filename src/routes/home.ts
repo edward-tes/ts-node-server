@@ -10,7 +10,7 @@ router.get("/", function(
   res: express.Response,
   next: express.NextFunction,
 ) {
-  res.render("index.jade", { title: "Hey", message: "Hello there!" });
+  res.render("index", { title: "Hey", message: "Hello there!" });
 });
 
 export default router;

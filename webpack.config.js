@@ -22,7 +22,7 @@ module.exports = {
   ],
   output: {
     path: path.resolve(__dirname, "./dist"),
-    filename: "app.js",
+    filename: "server.js",
     libraryTarget: "commonjs",
     publicPath: "/"
   },
@@ -37,7 +37,7 @@ module.exports = {
         loader: 'awesome-typescript-loader',
       },
       {
-        test: /\/views\/.+\.jade?$/i,
+        test: /\/views\/.+\.*$/i,
         loader: "file-loader",
         options: {
           name: "[name].[ext]",

@@ -16,4 +16,5 @@ install:
   - yarn install
 
 script:
-  - yarn run prod
+  - yarn test
+  - yarn prod
